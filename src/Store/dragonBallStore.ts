@@ -4,7 +4,6 @@ import { Character } from "../Interface/Characters";
 interface DragonBallState {
   characters: {
     items: Character[];
-    meta: any; 
   };
   page: number;
   limit: number; // Agrega esta propiedad
