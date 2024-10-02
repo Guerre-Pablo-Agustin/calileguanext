@@ -72,6 +72,7 @@ const Page = () => {
             Volver
           </button>
         )}
+        <p>Página {page}</p>
         {hasMore && (
           <button
             className="bg-[#fbc02d] hover:bg-[#fbc02d]/80 text-white font-bold py-2 px-4 rounded"
