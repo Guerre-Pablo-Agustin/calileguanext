@@ -2,8 +2,8 @@
 import Image from "next/image";
 import { useDragonBallStore } from "../../../Store/dragonBallStore";
 import { useEffect } from "react";
-import Card from "@/components/Card/Card";
 import Link from "next/link";
+import TransformationCard from "../../../components/TransformationCard/TransformationCard";
 
 type Params = {
   id: string;
@@ -67,15 +67,15 @@ const Page = ({ params }: { params: Params }) => {
           </p>
         </div>
       </div>
-      {/* mapear transformaciones */}
+
+      {/* transformaciones */}
       <div className="cards-container grid grid-cols-1 gap-20 p-20 md:grid-cols-2 lg:grid-cols-4">
-        {/* Verifica que haya un personaje y que tenga transformaciones */}
         {characters.length > 0 && characters[0].transformations ? (
           characters[0].transformations.map((transformation) => (
-            <Card key={transformation.id} character={transformation} />
+            <TransformationCard key={transformation.id} transformation={transformation} />
           ))
         ) : (
-          <p>No hay transformaciones disponibles.</p> // Mensaje opcional si no hay transformaciones
+          <p>No hay transformaciones disponibles.</p>
         )}
       </div>
     </div>
