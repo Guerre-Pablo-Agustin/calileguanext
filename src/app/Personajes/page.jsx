@@ -9,9 +9,12 @@ const Page = () => {
   const characters = useDragonBallStore((state) => state.characters);
   const fetchCharacters = useDragonBallStore((state) => state.fetchCharacters);
   const [loading, setLoading] = useState(true);
+
+  // Paginacion
   const [page, setPage] = useState(1);
   const limit = 8;
   const [hasMore, setHasMore] = useState(true);
+  
 
   // Estados de los filtros
   const [searchname, setSearchname] = useState("");
@@ -23,7 +26,6 @@ const Page = () => {
     const loadCharacters = async () => {
       try {
         setLoading(true);
-        // Pasamos los filtros a fetchCharacters
         await fetchCharacters(page, limit, {
           name: searchname,
           gender: searchgender,
@@ -75,33 +77,38 @@ const Page = () => {
   };
 
   return (
-    <div className="flex md:flex-row justify-center items-center flex-col gap-6 px-4">
-      <div className="flex justify-center items-center flex-col gap-6 px-4 mt-8">
-        {/* Filtros */}
-        <Filtros onFilterChange={handleFilterChange} />
-      </div>
-      <div>
-        <h1 className="text-3xl font-bold text-center text-[#fbc02d] hover:text-[#fbc02d]/80 mt-8 px-4">
-          Dragon Ball Characters
-        </h1>
-        <Suspense fallback={<div>Cargando personajes...</div>}>
-          {loading ? (
-            <div>Cargando personajes...</div>
-          ) : (
-            <Cards characters={characters} />
-          )}
-        </Suspense>
-
-        {/* Pagination */}
-        <Pagination
-          page={page}
-          setPage={setPage}
-          handleLoadMore={handleLoadMore}
-          handleGoBack={handleGoBack}
-          hasMore={hasMore}
-        />
-      </div>
+    <div className="flex md:flex-row justify-center items-start flex-col gap-6 px-4 mt-8">
+      
+      {/* Filtros */}
+    <div className="flex justify-center items-center flex-col gap-6 px-4 bg-slate-800 md:w-1/4 rounded-lg shadow-lg">
+      <Filtros onFilterChange={handleFilterChange} />
     </div>
+
+    {/* Cards */}
+    <div className="flex justify-center items-center flex-col gap-6 px-4 bg-slate-800 md:w-3/4 w-full rounded-lg shadow-lg">
+      <h1 className="text-4xl font-extrabold text-center text-[#fbc02d] hover:text-[#fbc02d]/80 mt-4">
+        Dragon Ball Characters
+      </h1>
+      <Suspense fallback={<div className="text-center">Cargando personajes...</div>}>
+        {loading ? (
+          <div className="text-center">Cargando personajes...</div>
+        ) : (
+          <Cards characters={characters} />
+        )}
+      </Suspense>
+  
+      {/* Pagination */}
+      <Pagination
+        page={page}
+        setPage={setPage}
+        handleLoadMore={handleLoadMore}
+        handleGoBack={handleGoBack}
+        hasMore={hasMore}
+        previousCharactersLength={characters.items.length}
+      />
+    </div>
+  </div>
+  
   );
 };
 
