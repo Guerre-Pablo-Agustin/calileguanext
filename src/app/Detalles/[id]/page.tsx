@@ -75,7 +75,7 @@ const Page = ({ params }: { params: Params }) => {
             <TransformationCard key={transformation.id} transformation={transformation} />
           ))
         ) : (
-          <p>No hay transformaciones disponibles.</p>
+          <p>Este personaje no tiene transformaciones</p>
         )}
       </div>
     </div>
